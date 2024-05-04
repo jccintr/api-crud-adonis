@@ -10,11 +10,11 @@ export default class AuthController {
     const user = await User.findBy('email', email)
 
     if (!user) {
-       return response.status(400).send({error:'Email não encontrado.'})
+       return response.status(400).send({error:'Email e ou senha inválidos.'})
     }
 
     if(! await hash.verify(user.password, password)){
-      return response.status(400).send({error:'Senha inválida.'})
+      return response.status(400).send({error:'Email e ou senha inválidos.'})
     }
 
     const token = await User.accessTokens.create(user)
